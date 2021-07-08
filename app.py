@@ -4,7 +4,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET','POST'])
 def index():
     if(request.method=='GET'):
-        return jsonify({"response":"GET RESPONSE"})
+        return jsonify({"color":"red"})
     else:
         body = request.get_json()
         # Do a request to rasa and then return the returned value
