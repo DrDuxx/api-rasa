@@ -1,15 +1,16 @@
 from flask import Flask, jsonify, request
+import random
 app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def index():
     if(request.method=='GET'):
-        return jsonify({"color":"red"})
+        colors = ['red', 'blue', 'green']
+        rand = random.randrange(0, 3)
+        return jsonify({"color":colors[rand]})
     else:
         body = request.get_json()
-        # Do a request to rasa and then return the returned value
-        # validate reply type and return json with important information containing the reply and some bool values
-        return jsonify({"response":body})
+        return jsonify(body)
 
 
 if __name__ == '__main__':
