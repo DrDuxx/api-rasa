@@ -12,7 +12,8 @@ def index():
         return jsonify({"color":colors[rand]})
     else:
         body = request.get_json()
-        res = requests.post(os.environ.get("API_URL")+'/webhooks/rest/webhook')
+        # res = requests.post(os.environ.get("API_URL")+'/webhooks/rest/webhook')
+        res = os.environ.get("API_URL")
         return jsonify(res)
 
 
