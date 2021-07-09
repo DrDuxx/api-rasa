@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_socketio import SocketIO, send
 import random
 import requests
@@ -20,47 +20,20 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 #         final = res.json()
 #         return jsonify(final[0])
 
-# @socketio.on('connect')
-# def initiate():
-#     res = {
-#             "objectPath" : "/Game/ThirdPersonBP/Maps/ThirdPersonExampleMap.ThirdPersonExampleMap:PersistentLevel.Cube_2.StaticMeshComponent0",
-#             "functionName":"SetMaterial",
-#             "parameters": {
-#                 "NewRotation": {
-#                     "Pitch":140,
-#                     "Yaw":90,
-#                     "Roll":300
-#                 }
-#             },
-#             "generateTransaction":True
-#         }
-#     send(res)
-
 
 @socketio.on('message')
 def handleMessage(msg):
-    # try:
-    #     msg
-    # except NameError:
-    #     msg="hey"
-    #
-    # data = {"sender":"User","message":msg}
-    # res = requests.post(os.environ.get("API_URL") + '/webhooks/rest/webhook', json=data)
-    # final = res.json()
-    # send(final[0]["text"])
-    res = {
-            "objectPath" : "/Game/ThirdPersonBP/Maps/ThirdPersonExampleMap.ThirdPersonExampleMap:PersistentLevel.Cube_2.StaticMeshComponent0",
-            "functionName":"SetMaterial",
-            "parameters": {
-                "NewRotation": {
-                    "Pitch":140,
-                    "Yaw":90,
-                    "Roll":300
-                }
-            },
-            "generateTransaction":True
-        }
-    send(res)
+    try:
+        msg
+    except NameError:
+        msg="hey"
+
+    data = {"sender":"User","message":msg}
+    res = requests.post(os.environ.get("API_URL") + '/webhooks/rest/webhook', json=data)
+    final = res.json()
+    if(len(final)>1):
+        print("SEND COLOR TO MICKEL")
+    send(final[0]["text"])
 
 
 if __name__ == '__main__':
