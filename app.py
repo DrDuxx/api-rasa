@@ -13,7 +13,7 @@ def index():
     else:
         body = request.get_json()
         res = requests.post(os.environ.get("API_URL")+'/webhooks/rest/webhook')
-        return jsonify(body)
+        return jsonify(res)
 
 
 if __name__ == '__main__':
