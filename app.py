@@ -12,7 +12,7 @@ def index():
         return jsonify({"color":colors[rand]})
     else:
         body = request.get_json()
-        res = requests.post('https://7c64bc2955e1.ngrok.io/webhooks/rest/webhook')
+        res = requests.post(os.environ.get("API_URL")+'/webhooks/rest/webhook', json=body)
         # res = os.environ.get("API_URL")
         return jsonify(res)
 
