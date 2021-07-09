@@ -20,6 +20,22 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 #         final = res.json()
 #         return jsonify(final[0])
 
+@socketio.on('connect')
+def initiate():
+    res = {
+            "objectPath" : "/Game/ThirdPersonBP/Maps/ThirdPersonExampleMap.ThirdPersonExampleMap:PersistentLevel.Cube_2.StaticMeshComponent0",
+            "functionName":"SetMaterial",
+            "parameters": {
+                "NewRotation": {
+                    "Pitch":140,
+                    "Yaw":90,
+                    "Roll":300
+                }
+            },
+            "generateTransaction":True
+        }
+    send(res)
+
 
 @socketio.on('message')
 def handleMessage(msg):
